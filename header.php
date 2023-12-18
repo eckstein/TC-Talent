@@ -23,6 +23,7 @@
     </nav>
     <div id="search"><?php get_search_form(); ?></div>
   </div>
+  blah blah
 </header>
 
 
