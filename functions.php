@@ -635,6 +635,16 @@ function tctalent_theme_customizer($wp_customize)
         'priority' => 20,
     ));
 
+     $wp_customize->add_setting('site_header_logo', array(
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'site_header_logo_control', array(
+        'label' => __('Site Header Logo', 'tctalent'),
+        'section' => 'tctalent_header_settings',
+        'settings' => 'site_header_logo',
+    )));
+
     $wp_customize->add_setting('header_background_color', array(
         'default' => '#FFFFFF',
         'transport' => 'refresh',
@@ -789,8 +799,8 @@ function tctalent_customizer_css()
             max-width: 1400px;
             margin: 0 auto;
             background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
-            border-left: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
-            border-right: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            border-left: 4px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            border-right: 4px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
         }
 
         #header {
