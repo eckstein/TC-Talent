@@ -179,18 +179,18 @@ code {
 }
 
 #site-title {
-	flex: 1.5;
+	flex: 1;
 }
 
 
 /* Main search form */
 #search {
-  margin-right: 25px;
   flex: 1;
 }
 	#search form {
 		display: flex;
 		column-gap: 10px;
+		justify-content: flex-end;
 	}
 
 #search input[type="search"] {
