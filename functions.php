@@ -799,8 +799,8 @@ function tctalent_customizer_css()
             max-width: 1400px;
             margin: 0 auto;
             background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
-            border-left: 4px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
-            border-right: 4px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            border-left: 4px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
+            border-right: 4px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
         }
 
         #header {
@@ -813,7 +813,7 @@ function tctalent_customizer_css()
             ;
             background-image: url('<?php echo get_theme_mod('header_overlay_image', 'https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); ?>');
             background-repeat: repeat;
-            border-bottom: 3px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            border-bottom: 3px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
         }
 
 
