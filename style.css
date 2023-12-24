@@ -484,10 +484,12 @@ code {
 	margin: 0;
 	padding: 0;
 	display: flex;
-	gap: 30px;
+	gap: 25px;
+	list-style: none;
 }
 #menu li {
 	margin: 0;
+	
 }
 
 #menu a {
@@ -527,6 +529,7 @@ code {
 		flex: 0 0 100%;
 		text-align: center;
 	}
+
 	#menu li.menu-item > a {
 		padding: 0;
 		
