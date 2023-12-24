@@ -199,21 +199,18 @@ code {
 	background-repeat: repeat; /* Ensure the pattern repeats */
 	position: relative; /* Needed for pseudo-element positioning */
 	border-bottom: 3px solid #E8A001; /* Bottom border */
-	--mask:
-		radial-gradient(farthest-side at 50% 0, transparent 70%, #000 71%) 50% 0/100% 20px no-repeat;
-	-webkit-mask: var(--mask);
-			mask: var(--mask);
 }
 
 #header::after {
 	content: '';
 	position: absolute;
-	bottom: -3px; /* Align with the bottom border */
+	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 20px; /* Adjust for wave depth */
-	background: inherit;
-	box-shadow: 0 0 0 3px #E8A001; /* Continues the bottom border */
+	height: 30px; /* Height of the wave */
+	background: 
+	  radial-gradient(circle at 50% 0, #FFFFFF 30%, transparent 31%) 50% 10px/100% 20px no-repeat;
+	z-index: -1;
 }
 
 
