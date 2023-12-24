@@ -595,7 +595,7 @@ add_action('edit_form_after_title', 'add_custom_permalink');
 
 function tctalent_theme_customizer( $wp_customize ) {
     // Add a section for the color settings
-    $wp_customize->add_section( 'mytheme_color_settings', array(
+    $wp_customize->add_section( 'tctalent_color_settings', array(
         'title'    => __('Color Settings', 'tctalent'),
         'priority' => 30,
     ));
