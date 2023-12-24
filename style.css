@@ -499,6 +499,7 @@ code {
 	text-decoration: none;
 	font-weight: bold;
 	font-size: 22px;
+	white-space: nowrap;
 }
 
 #menu a:hover,
