@@ -813,7 +813,7 @@ function tctalent_customizer_css()
             ;
             background-image: url('<?php echo get_theme_mod('header_overlay_image', 'https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); ?>');
             background-repeat: repeat;
-            border-bottom: 3px solid #F39C03;
+            border-bottom: 3px solid <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
         }
 
 
