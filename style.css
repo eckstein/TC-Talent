@@ -194,11 +194,11 @@ code {
 	justify-content: space-between;
 	align-items: center;
 	z-index: 1000;
-	background-color: #0C3D59; /* Base background color */
-	background-image: url('https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); /* Overlay pattern */
-	background-repeat: repeat; /* Ensure the pattern repeats */
-	position: relative; /* Needed for pseudo-element positioning */
-	border-bottom: 3px solid #E8A001; /* Bottom border */
+	background-color: #0C3D59;
+	background-image: url('https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png');
+	background-repeat: repeat;
+	position: relative;
+	border-bottom: 3px solid #E8A001;
 }
 
 #header::after {
@@ -207,10 +207,16 @@ code {
 	bottom: 0;
 	left: 0;
 	width: 100%;
-	height: 30px; /* Height of the wave */
-	background: 
-	  radial-gradient(circle at 50% 0, #FFFFFF 30%, transparent 31%) 50% 10px/100% 20px no-repeat;
-	z-index: -1;
+	height: 30px;
+	background: linear-gradient(to bottom, #FFFFFF 0%, #FFFFFF 100%);
+	--size: 15px;
+	--p: 7.5px;
+	--R: calc(sqrt(var(--p) * var(--p) + var(--size) * var(--size)) + var(--p));
+	mask:
+	  radial-gradient(var(--R) at 50% calc(100% - (var(--size) + var(--p))), #000 99%, #0000 101%)
+		calc(50% - 2 * var(--size)) 0/calc(4 * var(--size)) 100%,
+	  radial-gradient(var(--R) at 50% calc(100% + var(--p)), #0000 99%, #000 101%) 
+		50% calc(100% - var(--size)) / calc(4 * var(--size)) 100% repeat-x;
 }
 
 
