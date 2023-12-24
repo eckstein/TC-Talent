@@ -199,8 +199,11 @@ code {
 	background-repeat: repeat; /* Ensure the pattern repeats */
 	position: relative; /* Needed for pseudo-element positioning */
 	border-bottom: 3px solid #E8A001; /* Bottom border */
-	-webkit-mask-image: radial-gradient(circle at 50% 100%, transparent 20px, black 21px);
-	mask-image: radial-gradient(circle at 50% 100%, transparent 20px, black 21px);
+	--mask:
+		radial-gradient(328.72px at 50% -442.50px, #0000 99%, #000 101%) calc(50% - 300px) 0/600px 100%,
+		radial-gradient(328.72px at 50% 292.5px, #000 99%, #0000 101%) 50% -150px/600px 100% repeat-x;
+	-webkit-mask: var(--mask);
+			mask: var(--mask);
 }
 
 #header::after {
@@ -213,6 +216,7 @@ code {
 	background: inherit;
 	box-shadow: 0 0 0 3px #E8A001; /* Continues the bottom border */
 }
+
 
 
 
