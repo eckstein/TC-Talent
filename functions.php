@@ -591,3 +591,77 @@ function add_custom_permalink() {
 add_action('edit_form_after_title', 'add_custom_permalink');
 
 
+
+
+function tctalent_theme_customizer( $wp_customize ) {
+    // Add a section for the color settings
+    $wp_customize->add_section( 'mytheme_color_settings', array(
+        'title'    => __('Color Settings', 'tctalent'),
+        'priority' => 30,
+    ));
+
+    // Setting for theme color 1
+    $wp_customize->add_setting( 'theme_color_1', array(
+        'default'   => '#FFFFFF',
+        'transport' => 'refresh',
+    ));
+
+    // Control for theme color 1
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_1_control', array(
+        'label'    => __('Theme Color 1', 'tctalent'),
+        'section'  => 'tctalent_color_settings',
+        'settings' => 'theme_color_1',
+    )));
+
+    // Setting for theme color 2
+    $wp_customize->add_setting( 'theme_color_2', array(
+        'default'   => '#FFFFFF', // Replace with your default color
+        'transport' => 'refresh',
+    ));
+
+    // Control for theme color 2
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_2_control', array(
+        'label'    => __('Theme Color 2', 'tctalent'),
+        'section'  => 'tctalent_color_settings',
+        'settings' => 'theme_color_2',
+    )));
+
+    // Setting for theme color 3
+    $wp_customize->add_setting( 'theme_color_3', array(
+        'default'   => '#FFFFFF', // Replace with your default color
+        'transport' => 'refresh',
+    ));
+
+    // Control for theme color 3
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_3_control', array(
+        'label'    => __('Theme Color 3', 'tctalent'),
+        'section'  => 'tctalent_color_settings',
+        'settings' => 'theme_color_3',
+    )));
+
+
+    // Add a section for the footer content
+    $wp_customize->add_section( 'tctalent_footer_content', array(
+        'title'    => __('Footer Content', 'tctalent'),
+        'priority' => 120,
+    ));
+
+    // Setting for footer content
+    $wp_customize->add_setting( 'footer_content', array(
+        'default'   => '',
+        'transport' => 'refresh', // Use 'refresh' if you don't implement JavaScript-based live preview
+    ));
+
+    // Control for footer content (WYSIWYG editor)
+    $wp_customize->add_control( 'footer_content_control', array(
+        'label'    => __('Footer Content', 'tctalent'),
+        'type'     => 'textarea',
+        'section'  => 'tctalent_footer_content',
+        'settings' => 'footer_content',
+    ));
+}
+
+add_action( 'customize_register', 'tctalent_theme_customizer' );
+
+
+
