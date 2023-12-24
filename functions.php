@@ -594,74 +594,158 @@ add_action('edit_form_after_title', 'add_custom_permalink');
 
 
 function tctalent_theme_customizer( $wp_customize ) {
-    // Add a section for the color settings
+    // Header Section with Background Color and Overlay Image
+    $wp_customize->add_section( 'tctalent_header_settings', array(
+        'title'    => __('Header Settings', 'tctalent'),
+        'priority' => 20,
+    ));
+
+    $wp_customize->add_setting( 'header_background_color', array(
+        'default'   => '#FFFFFF',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'header_background_color_control', array(
+        'label'    => __('Header Background Color', 'tctalent'),
+        'section'  => 'tctalent_header_settings',
+        'settings' => 'header_background_color',
+    )));
+
+    $wp_customize->add_setting( 'header_overlay_image', array(
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'header_overlay_image_control', array(
+        'label'    => __('Header Overlay Image', 'tctalent'),
+        'section'  => 'tctalent_header_settings',
+        'settings' => 'header_overlay_image',
+    )));
+
+    // Color Settings Section
     $wp_customize->add_section( 'tctalent_color_settings', array(
         'title'    => __('Color Settings', 'tctalent'),
         'priority' => 30,
     ));
 
-    // Setting for theme color 1
-    $wp_customize->add_setting( 'theme_color_1', array(
+    // Gradient Start Color
+    $wp_customize->add_setting( 'site_bg_gradient_start', array(
         'default'   => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    // Control for theme color 1
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_1_control', array(
-        'label'    => __('Theme Color 1', 'tctalent'),
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_bg_gradient_start_control', array(
+        'label'    => __('Site BG Gradient Start', 'tctalent'),
         'section'  => 'tctalent_color_settings',
-        'settings' => 'theme_color_1',
+        'settings' => 'site_bg_gradient_start',
     )));
 
-    // Setting for theme color 2
-    $wp_customize->add_setting( 'theme_color_2', array(
-        'default'   => '#FFFFFF', // Replace with your default color
+    // Gradient End Color
+    $wp_customize->add_setting( 'site_bg_gradient_end', array(
+        'default'   => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    // Control for theme color 2
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_2_control', array(
-        'label'    => __('Theme Color 2', 'tctalent'),
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_bg_gradient_end_control', array(
+        'label'    => __('Site BG Gradient End', 'tctalent'),
         'section'  => 'tctalent_color_settings',
-        'settings' => 'theme_color_2',
+        'settings' => 'site_bg_gradient_end',
     )));
 
-    // Setting for theme color 3
-    $wp_customize->add_setting( 'theme_color_3', array(
-        'default'   => '#FFFFFF', // Replace with your default color
+    // Main Content Background Color
+    $wp_customize->add_setting( 'main_content_background_color', array(
+        'default'   => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    // Control for theme color 3
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'theme_color_3_control', array(
-        'label'    => __('Theme Color 3', 'tctalent'),
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'main_content_background_color_control', array(
+        'label'    => __('Main Content Background Color', 'tctalent'),
         'section'  => 'tctalent_color_settings',
-        'settings' => 'theme_color_3',
+        'settings' => 'main_content_background_color',
     )));
 
-
-    // Add a section for the footer content
-    $wp_customize->add_section( 'tctalent_footer_content', array(
-        'title'    => __('Footer Content', 'tctalent'),
-        'priority' => 120,
+     // Button Background Color
+    $wp_customize->add_setting( 'button_background_color', array(
+        'default'   => '#222222',
+        'transport' => 'refresh',
     ));
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'button_background_color_control', array(
+        'label'    => __('Button BG Color', 'tctalent'),
+        'section'  => 'tctalent_color_settings',
+        'settings' => 'button_background_color',
+    )));
 
-    // Setting for footer content
-    $wp_customize->add_setting( 'footer_content', array(
-        'default'   => '',
-        'transport' => 'refresh', // Use 'refresh' if you don't implement JavaScript-based live preview
+     // Button Text Color
+    $wp_customize->add_setting( 'button_text_color', array(
+        'default'   => '#FFFFFF',
+        'transport' => 'refresh',
     ));
-
-    // Control for footer content (WYSIWYG editor)
-    $wp_customize->add_control( 'footer_content_control', array(
-        'label'    => __('Footer Content', 'tctalent'),
-        'type'     => 'textarea',
-        'section'  => 'tctalent_footer_content',
-        'settings' => 'footer_content',
-    ));
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'button_text_color_control', array(
+        'label'    => __('Button Text Color', 'tctalent'),
+        'section'  => 'tctalent_color_settings',
+        'settings' => 'button_text_color',
+    )));
 }
 
 add_action( 'customize_register', 'tctalent_theme_customizer' );
+
+
+
+function tctalent_customizer_css() {
+    ?>
+    <style type="text/css">
+        #wrapper {
+            background-color: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            background-image: linear-gradient(to bottom right, <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>, <?php echo get_theme_mod('site_bg_gradient_end', '#000000'); ?>);
+            background-attachment: fixed;
+        }
+
+        #container {
+            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
+        }
+
+        @media screen and (max-width: 768px) {
+            #container {
+                padding: 20px;
+                border-left: 4px solid #E3C467;
+                border-right: 4px solid #E3C467;
+            }
+        }
+        input[type="submit"],
+        button,
+        a.button {
+            font-size: 18px;
+            font-family: "Pierson", serif;
+            padding: 9px 20px 7px;
+            border: 1px solid #d2c659;
+            border-radius: 5px;
+            color: <?php echo get_theme_mod('button_text_color', '#FFFFFF'); ?>;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: <?php echo get_theme_mod('button_background_color', '#222222'); ?>;
+            text-decoration: none;
+        }
+
+        input[type="submit"]:hover,
+        button:hover,
+        a.button:hover {
+            filter: brightness(120%); 
+        }
+
+        input[type="submit"]:active,
+        button:active,
+        a.button:active {
+            filter: brightness(120%);
+        }
+
+    </style>
+
+    <?php
+}
+add_action('wp_head', 'tctalent_customizer_css');
+
 
 
 

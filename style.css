@@ -164,26 +164,7 @@ code {
   padding: 0.25rem;
 }
 
-/*Structure*/
-#wrapper {
-	background-color: #ddd88b;
-	background-image: url("https://toposwopetalent.com/wp-content/uploads/2023/06/vecteezy_gold-gradient-background_19511531.jpg");
-	background-attachment: fixed;
-}
 
-#container {
-  padding: 40px;
-  max-width: 1400px;
-  margin: 0 auto;
-  background-color: rgba(255,255,255,.97);
-}
-@media screen and (max-width: 768px) {
-	#container {
-		padding: 20px;
-		border-left: 4px solid #E3C467;
-		border-right: 4px solid #E3C467;
-	}
-}
 
 /* Header */
 
@@ -433,31 +414,6 @@ select:focus {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-input[type="submit"],
-button,
-a.button {
-  font-size: 18px;
-  font-family: "Pierson", serif;
-  padding: 9px 20px 7px;
-  border: 1px solid #d2c659;
-  border-radius: 5px;
-  color: #222;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  background-color: #E8A001;
-  text-decoration: none;
-}
-
-input[type="submit"]:hover,
-button:hover,
-a.button:hover {
-  background-color: #FFECD1;
-}
-
-input[type="submit"]:active,
-button:active {
-  background-color: #FFECD1;
-}
 
 
 
