@@ -178,11 +178,15 @@ code {
   justify-content: space-between;
 }
 
+#site-title {
+	flex: 1.5;
+}
 
 
 /* Main search form */
 #search {
   margin-right: 25px;
+  flex: 1;
 }
 	#search form {
 		display: flex;
@@ -210,6 +214,7 @@ code {
 #menu {
   display: flex;
   margin-right: 60px;
+  flex: 1;
 }
 #menu ul {
 	margin: 0;
