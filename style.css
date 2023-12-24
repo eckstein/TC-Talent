@@ -447,6 +447,7 @@ code {
 
 #site-title {
 	flex: 1;
+	text-align: center;
 }
 
 /* Main search form */
@@ -483,10 +484,9 @@ code {
 	margin: 0;
 	padding: 0;
 	display: flex;
-	gap: 20px;
+	gap: 30px;
 }
 #menu li {
-	
 	margin: 0;
 }
 
@@ -512,12 +512,10 @@ code {
 }
 
 /* Responsive Styling */
-@media screen and (max-width: 1199px) {
-	#header {
-		flex-direction: column;
-	}
+@media screen and (max-width: 999px) {
 
 	#branding {
+		flex-direction: column;
 		flex-wrap: wrap;
 		justify-content: center;
 		padding: 20px;
@@ -538,8 +536,12 @@ code {
 		font-size: 18px;
 	}
 
+	#site-title {
+		flex: 0 0 100%;
+	}
+
 	#search {
-		margin-top: 20px;
+		flex: 0 0 100%;
 		margin-right: 0;
 	}
 
