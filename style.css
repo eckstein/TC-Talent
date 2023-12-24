@@ -200,8 +200,7 @@ code {
 	position: relative; /* Needed for pseudo-element positioning */
 	border-bottom: 3px solid #E8A001; /* Bottom border */
 	--mask:
-		radial-gradient(328.72px at 50% -442.50px, #0000 99%, #000 101%) calc(50% - 300px) 0/600px 100%,
-		radial-gradient(328.72px at 50% 292.5px, #000 99%, #0000 101%) 50% -150px/600px 100% repeat-x;
+		radial-gradient(farthest-side at 50% 0, transparent 70%, #000 71%) 50% 0/100% 20px no-repeat;
 	-webkit-mask: var(--mask);
 			mask: var(--mask);
 }
@@ -216,8 +215,6 @@ code {
 	background: inherit;
 	box-shadow: 0 0 0 3px #E8A001; /* Continues the bottom border */
 }
-
-
 
 
 #branding {
