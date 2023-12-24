@@ -788,17 +788,9 @@ function tctalent_customizer_css()
             padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            background-color:
-                <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>
-            ;
-        }
-
-        @media screen and (max-width: 768px) {
-            #container {
-                padding: 20px;
-                border-left: 4px solid #E3C467;
-                border-right: 4px solid #E3C467;
-            }
+            background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
+            border-left: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
+            border-right: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
         }
 
         #header {
