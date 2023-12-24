@@ -518,7 +518,8 @@ code {
 		flex-direction: column;
 		flex-wrap: wrap;
 		justify-content: center;
-		padding: 20px;
+		padding: 20px 40px;
+		gap: 20px;
 	}
 
 	#menu {
@@ -528,12 +529,13 @@ code {
 	}
 	#menu li.menu-item > a {
 		padding: 0;
+		
 	}
 	.menu-main-menu-container {
 		width: 100%;
 	}
 	#menu a {
-		font-size: 18px;
+		font-size: 24px;
 	}
 
 	#site-title {
