@@ -621,6 +621,49 @@ function tctalent_theme_customizer( $wp_customize ) {
         'settings' => 'header_overlay_image',
     )));
 
+    // Add a section for the footer settings
+    $wp_customize->add_section( 'tctalent_footer_settings', array(
+        'title'    => __('Footer Settings', 'tctalent'),
+        'priority' => 130,
+    ));
+
+    // Footer Background Color
+    $wp_customize->add_setting( 'footer_background_color', array(
+        'default'   => '#222222',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'footer_background_color_control', array(
+        'label'    => __('Footer Background Color', 'tctalent'),
+        'section'  => 'tctalent_footer_settings',
+        'settings' => 'footer_background_color',
+    )));
+
+    // Footer Text Color
+    $wp_customize->add_setting( 'footer_text_color', array(
+        'default'   => '#FFFFFF',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'footer_text_color_control', array(
+        'label'    => __('Footer Text Color', 'tctalent'),
+        'section'  => 'tctalent_footer_settings',
+        'settings' => 'footer_text_color',
+    )));
+
+    // Footer Content
+    $wp_customize->add_setting( 'footer_content', array(
+        'default'   => '',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control( 'footer_content_control', array(
+        'label'    => __('Footer Content', 'tctalent'),
+        'type'     => 'textarea',
+        'section'  => 'tctalent_footer_settings',
+        'settings' => 'footer_content',
+    ));
+
     // Color Settings Section
     $wp_customize->add_section( 'tctalent_color_settings', array(
         'title'    => __('Color Settings', 'tctalent'),
@@ -713,6 +756,19 @@ function tctalent_customizer_css() {
                 border-right: 4px solid #E3C467;
             }
         }
+
+        #header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background-color: <?php echo get_theme_mod('header_background_color', '#0C3D59'); ?>;
+            background-image: url('<?php echo get_theme_mod('header_overlay_image', 'https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); ?>');
+            background-repeat: repeat;
+            border-bottom: 3px solid #F39C03;
+        }
+
+
         input[type="submit"],
         button,
         a.button {
@@ -738,6 +794,18 @@ function tctalent_customizer_css() {
         button:active,
         a.button:active {
             filter: brightness(120%);
+        }
+
+         #footer {
+            background-color: <?php echo get_theme_mod('footer_background_color', '#000000'); ?>;
+            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
+        }
+         #footer a {
+            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
+            text-decoration: underline;
+         }
+        #copyright {
+            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
         }
 
     </style>
