@@ -36,7 +36,7 @@ function tctalent_enqueue()
     // Localize the script with the ajaxurl variable
     wp_localize_script('tctalent-main', 'tctalent_ajax', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
-		'tctnonce'   => wp_create_nonce( 'tct_global_nonce' )
+        'tctnonce' => wp_create_nonce('tct_global_nonce')
     ));
 }
 
@@ -45,36 +45,36 @@ function tctalent_enqueue()
 add_action('wp_footer', 'tctalent_footer');
 function tctalent_footer()
 {
-?>
-<script>
-jQuery(document).ready(function($) {
-var deviceAgent = navigator.userAgent.toLowerCase();
-if (deviceAgent.match(/(iphone|ipod|ipad)/)) {
-$("html").addClass("ios");
-$("html").addClass("mobile");
-}
-if (deviceAgent.match(/(Android)/)) {
-$("html").addClass("android");
-$("html").addClass("mobile");
-}
-if (navigator.userAgent.search("MSIE") >= 0) {
-$("html").addClass("ie");
-}
-else if (navigator.userAgent.search("Chrome") >= 0) {
-$("html").addClass("chrome");
-}
-else if (navigator.userAgent.search("Firefox") >= 0) {
-$("html").addClass("firefox");
-}
-else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
-$("html").addClass("safari");
-}
-else if (navigator.userAgent.search("Opera") >= 0) {
-$("html").addClass("opera");
-}
-});
-</script>
-<?php
+    ?>
+    <script>
+        jQuery(document).ready(function ($) {
+            var deviceAgent = navigator.userAgent.toLowerCase();
+            if (deviceAgent.match(/(iphone|ipod|ipad)/)) {
+                $("html").addClass("ios");
+                $("html").addClass("mobile");
+            }
+            if (deviceAgent.match(/(Android)/)) {
+                $("html").addClass("android");
+                $("html").addClass("mobile");
+            }
+            if (navigator.userAgent.search("MSIE") >= 0) {
+                $("html").addClass("ie");
+            }
+            else if (navigator.userAgent.search("Chrome") >= 0) {
+                $("html").addClass("chrome");
+            }
+            else if (navigator.userAgent.search("Firefox") >= 0) {
+                $("html").addClass("firefox");
+            }
+            else if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0) {
+                $("html").addClass("safari");
+            }
+            else if (navigator.userAgent.search("Opera") >= 0) {
+                $("html").addClass("opera");
+            }
+        });
+    </script>
+    <?php
 }
 add_filter('document_title_separator', 'tctalent_document_title_separator');
 function tctalent_document_title_separator($sep)
@@ -174,22 +174,24 @@ function tctalent_enqueue_comment_reply_script()
 }
 function tctalent_custom_pings($comment)
 {
-?>
-<li <?php
+    ?>
+    <li <?php
     comment_class();
-?> id="li-comment-<?php
-    comment_ID();
-?>"><?php
-    echo esc_url(comment_author_link());
-?></li>
-<?php
+    ?> id="li-comment-<?php
+     comment_ID();
+     ?>">
+        <?php
+        echo esc_url(comment_author_link());
+        ?>
+    </li>
+    <?php
 }
 add_filter('get_comments_number', 'tctalent_comment_count', 0);
 function tctalent_comment_count($count)
 {
     if (!is_admin()) {
         global $id;
-        $get_comments     = get_comments('status=approve&post_id=' . $id);
+        $get_comments = get_comments('status=approve&post_id=' . $id);
         $comments_by_type = separate_comments($get_comments);
         return count($comments_by_type['comment']);
     } else {
@@ -200,7 +202,8 @@ function tctalent_comment_count($count)
 
 
 //Set the First middle and last name as the post title (and slug) from ACF fields
-function tctalent_set_actor_post_title( $post_id ) {
+function tctalent_set_actor_post_title($post_id)
+{
     if (get_post_type($post_id) == 'talent') {
         remove_action('acf/save_post', 'tctalent_set_actor_post_title', 20);
 
@@ -211,65 +214,67 @@ function tctalent_set_actor_post_title( $post_id ) {
         );
         $title = implode(' ', array_filter($titleParts));  // Removes any empty parts and joins the rest with a space
 
-        wp_update_post( array(
+        wp_update_post(array(
             'ID' => $post_id,
             'post_title' => $title,
             'post_name' => sanitize_title($title),
-        ) );
+        ));
 
         add_action('acf/save_post', 'tctalent_set_actor_post_title', 20);
     }
 }
 
-$custom_taxonomies = array( 'performance-type', 'age_range', 'gender' ); // Add your custom taxonomies here
+$custom_taxonomies = array('performance-type', 'age_range', 'gender'); // Add your custom taxonomies here
 
 // Add new columns to the post table
-add_filter( 'manage_edit-talent_columns', 'add_custom_taxonomy_columns' );
+add_filter('manage_edit-talent_columns', 'add_custom_taxonomy_columns');
 
-function add_custom_taxonomy_columns( $columns ) {
+function add_custom_taxonomy_columns($columns)
+{
     global $custom_taxonomies;
 
     $new_columns = array();
     $new_columns['cb'] = $columns['cb'];  // Checkbox column
     $new_columns['title'] = $columns['title'];  // Post title column
-    $new_columns['thumbnail'] = __( 'Thumbnail', 'textdomain' );  // Thumbnail column
+    $new_columns['thumbnail'] = __('Thumbnail', 'textdomain');  // Thumbnail column
 
-    foreach ( $custom_taxonomies as $taxonomy ) {
-        $taxonomy_obj = get_taxonomy( $taxonomy );
-        $new_columns[$taxonomy] = __( $taxonomy_obj->label, 'textdomain' );  // Custom taxonomy columns
+    foreach ($custom_taxonomies as $taxonomy) {
+        $taxonomy_obj = get_taxonomy($taxonomy);
+        $new_columns[$taxonomy] = __($taxonomy_obj->label, 'textdomain');  // Custom taxonomy columns
     }
 
     return $new_columns;
 }
 
 // Populate the new columns with custom taxonomy data
-add_action( 'manage_talent_posts_custom_column', 'populate_custom_taxonomy_columns', 10, 2 );
+add_action('manage_talent_posts_custom_column', 'populate_custom_taxonomy_columns', 10, 2);
 
-function populate_custom_taxonomy_columns( $column, $post_id ) {
+function populate_custom_taxonomy_columns($column, $post_id)
+{
     global $custom_taxonomies;
 
-    switch ( $column ) {
+    switch ($column) {
         case 'thumbnail':
-            $thumbnail_id = get_post_thumbnail_id( $post_id );
+            $thumbnail_id = get_post_thumbnail_id($post_id);
 
-            if ( $thumbnail_id ) {
-                $thumbnail_img = wp_get_attachment_image( $thumbnail_id, array(100, 100) );
+            if ($thumbnail_id) {
+                $thumbnail_img = wp_get_attachment_image($thumbnail_id, array(100, 100));
 
                 echo $thumbnail_img;
             } else {
-                echo __( 'No Thumbnail', 'textdomain' );
+                echo __('No Thumbnail', 'textdomain');
             }
 
             break;
 
         default:
-            if ( in_array( $column, $custom_taxonomies ) ) {
-                $terms = get_the_terms( $post_id, $column );
+            if (in_array($column, $custom_taxonomies)) {
+                $terms = get_the_terms($post_id, $column);
 
-                if ( is_array( $terms ) ) {
+                if (is_array($terms)) {
                     $term_links = array();
 
-                    foreach ( $terms as $term ) {
+                    foreach ($terms as $term) {
                         // Generate a link to the edit.php page with the appropriate post_type and taxonomy filters set
                         $term_link = add_query_arg(
                             array(
@@ -279,12 +284,12 @@ function populate_custom_taxonomy_columns( $column, $post_id ) {
                             'edit.php'
                         );
 
-                        $term_links[] = '<a href="' . esc_url( $term_link ) . '">' . $term->name . '</a>';
+                        $term_links[] = '<a href="' . esc_url($term_link) . '">' . $term->name . '</a>';
                     }
 
-                    echo implode( ', ', $term_links );
+                    echo implode(', ', $term_links);
                 } else {
-                    _e( 'No ' . $column, 'textdomain' );
+                    _e('No ' . $column, 'textdomain');
                 }
             }
             break;
@@ -294,47 +299,49 @@ function populate_custom_taxonomy_columns( $column, $post_id ) {
 
 
 // Add a dropdown filter for custom taxonomy terms
-add_action( 'restrict_manage_posts', 'filter_talent_by_custom_taxonomies' );
+add_action('restrict_manage_posts', 'filter_talent_by_custom_taxonomies');
 
-function filter_talent_by_custom_taxonomies( $post_type ) {
+function filter_talent_by_custom_taxonomies($post_type)
+{
     global $custom_taxonomies;
 
-    if ( 'talent' !== $post_type ) {
+    if ('talent' !== $post_type) {
         return; // Only apply to 'talent' post type
     }
 
-    foreach ( $custom_taxonomies as $taxonomy_slug ) {
-        $taxonomy_obj = get_taxonomy( $taxonomy_slug );
+    foreach ($custom_taxonomies as $taxonomy_slug) {
+        $taxonomy_obj = get_taxonomy($taxonomy_slug);
 
         $selected = '';
-        if ( isset( $_GET[$taxonomy_slug] ) ) {
+        if (isset($_GET[$taxonomy_slug])) {
             $selected = $_GET[$taxonomy_slug];
         }
 
-        wp_dropdown_categories( array(
+        wp_dropdown_categories(array(
             'show_option_all' => __("Show All {$taxonomy_obj->label}"),
-            'taxonomy'        => $taxonomy_slug,
-            'name'            => $taxonomy_obj->name,
-            'orderby'         => 'name',
-            'selected'        => $selected,
-            'hierarchical'    => true,
-            'hide_empty'      => false,
-        ) );
+            'taxonomy' => $taxonomy_slug,
+            'name' => $taxonomy_obj->name,
+            'orderby' => 'name',
+            'selected' => $selected,
+            'hierarchical' => true,
+            'hide_empty' => false,
+        ));
     }
 }
 
 // Modify the query based on the dropdown filter selection
-add_filter( 'parse_query', 'filter_talent_by_custom_taxonomies_query' );
+add_filter('parse_query', 'filter_talent_by_custom_taxonomies_query');
 
-function filter_talent_by_custom_taxonomies_query( $query ) {
+function filter_talent_by_custom_taxonomies_query($query)
+{
     global $pagenow, $custom_taxonomies;
 
     $post_type = 'talent'; // Change to your post type
 
     $q_vars = &$query->query_vars;
-    if ( $pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type ) {
-        foreach ( $custom_taxonomies as $taxonomy ) {
-            if ( isset($_GET[$taxonomy]) && is_numeric($_GET[$taxonomy]) && $_GET[$taxonomy] != 0 ) {
+    if ($pagenow == 'edit.php' && isset($q_vars['post_type']) && $q_vars['post_type'] == $post_type) {
+        foreach ($custom_taxonomies as $taxonomy) {
+            if (isset($_GET[$taxonomy]) && is_numeric($_GET[$taxonomy]) && $_GET[$taxonomy] != 0) {
                 $term = get_term_by('id', $_GET[$taxonomy], $taxonomy);
                 $q_vars[$taxonomy] = $term->slug;
             }
@@ -343,31 +350,33 @@ function filter_talent_by_custom_taxonomies_query( $query ) {
 }
 
 //Get Performance type based on set taxes
-function topo_get_performance_type($post_id) {
-	if (!$post_id) {
-		return false;
-	}
-	$hasOnCamera = has_term('on-camera', 'performance-type', $post_id);
-	$hasVoiceover = has_term('voiceover', 'performance-type', $post_id);
-	if ($hasOnCamera || $hasVoiceover) {
-		$return = 'Available for: ';
-	}
-	if ($hasOnCamera && $hasVoiceover) {
-		$return = "On-Camera & Voiceover";
-	} else if ($hasOnCamera) {
-		$return = "On-Camera";
-	} else if ($hasVoiceover) {
-		$return = "Voiceover";
-	} else {
-		//no taxonomies set
-		return false;
-	}
-	return $return;
+function topo_get_performance_type($post_id)
+{
+    if (!$post_id) {
+        return false;
+    }
+    $hasOnCamera = has_term('on-camera', 'performance-type', $post_id);
+    $hasVoiceover = has_term('voiceover', 'performance-type', $post_id);
+    if ($hasOnCamera || $hasVoiceover) {
+        $return = 'Available for: ';
+    }
+    if ($hasOnCamera && $hasVoiceover) {
+        $return = "On-Camera & Voiceover";
+    } else if ($hasOnCamera) {
+        $return = "On-Camera";
+    } else if ($hasVoiceover) {
+        $return = "Voiceover";
+    } else {
+        //no taxonomies set
+        return false;
+    }
+    return $return;
 }
 
 
 // Quick view on talent grid
-function talent_quick_view() {
+function talent_quick_view()
+{
     if (isset($_POST['post_id'])) {
         $post_id = intval($_POST['post_id']);
         $post = get_post($post_id);
@@ -378,88 +387,106 @@ function talent_quick_view() {
         // Get the post image
         $image = get_the_post_thumbnail($post_id, 'large');
         ?>
-        <div class="quick-view-image"><?php echo $image; ?></div>
+        <div class="quick-view-image">
+            <?php echo $image; ?>
+        </div>
         <div class="quick-view-details">
-			<div class="quick-view-title-group">
-				<h2 class="quick-view-title"><?php echo get_the_title($post_id); ?></h2>
-				<?php
-				$sagAftra = get_field('sag-aftra', $post_id);
-				if ($sagAftra != 'none' && isset($sagAftra)) {
-					?>
-					<div class="quick-view-sag-aftra">SAG/AFTRA<?php if ($sagAftra == 'sagaftra_ast') echo '*'; ?></div>
-					<?php
-				}
-				?>
-				<div class="quick-view-taxes">
-				<?php
-				echo topo_get_performance_type($post_id);
-				?>
-				</div>
-			</div>
+            <div class="quick-view-title-group">
+                <h2 class="quick-view-title">
+                    <?php echo get_the_title($post_id); ?>
+                </h2>
+                <?php
+                $sagAftra = get_field('sag-aftra', $post_id);
+                if ($sagAftra != 'none' && isset($sagAftra)) {
+                    ?>
+                    <div class="quick-view-sag-aftra">SAG/AFTRA
+                        <?php if ($sagAftra == 'sagaftra_ast')
+                            echo '*'; ?>
+                    </div>
+                    <?php
+                }
+                ?>
+                <div class="quick-view-taxes">
+                    <?php
+                    echo topo_get_performance_type($post_id);
+                    ?>
+                </div>
+            </div>
             <div class="quick-view-attributes">
                 <?php
                 $appearanceFields = array('height', 'weight', 'hair', 'eyes');
                 ?>
                 <table class="talent-table">
-                    <?php foreach ($appearanceFields as $fieldName) :
+                    <?php foreach ($appearanceFields as $fieldName):
                         $fieldValue = get_field($fieldName, $post_id);
-                        if ($fieldValue) : ?>
+                        if ($fieldValue): ?>
                             <tr class="talent-table-row field-<?php echo $fieldName; ?>">
-                                <td class="attribute-label"><?php echo get_field_object($fieldName, $post_id)['label']; ?></td>
-                                <td class="attribute-value"><?php echo $fieldValue; ?></td>
+                                <td class="attribute-label">
+                                    <?php echo get_field_object($fieldName, $post_id)['label']; ?>
+                                </td>
+                                <td class="attribute-value">
+                                    <?php echo $fieldValue; ?>
+                                </td>
                             </tr>
                         <?php endif;
                     endforeach; ?>
                 </table>
-				<?php
-					if( have_rows('actor-videos', $post_id) ) {
-						?>
-				<div class="talent-videos">
-					<?php
-						echo '<h3>Videos</h3>';
-						echo '<div class="talent-videos-wrapper">';
-						$videos = array();
-						while( have_rows('actor-videos', $post_id) ) { the_row();
-						$videoUrl = get_sub_field('actor-video-link');
-						$videoTitle = get_sub_field('actor-video-title');
-						?>
-						<div class="talent-video">
-							<h4><?php echo $videoTitle; ?></h4>
-							<?php topo_display_video_player($videoUrl);?>
-						</div>
-						<?php
-						 }
-						 echo '</div>';
-					?>
-				</div>
-				<?php }
-					?>
-				<?php
-					if( have_rows('actor-voiceover-samples', $post_id) ) {
-						?>
-				<br/><br/>
-				<div class="talent-audio-samples">
-					<?php
-						echo '<h3>Audio Samples</h2>';
-						echo '<div class="talent-audio-samples-wrap">';
-						while( have_rows('actor-voiceover-samples', $post_id) ) { the_row();
-						$audioURL = get_sub_field('actor-audio-file');
-						$audioTitle = get_sub_field('actor-audio-title');
-						?>
-						<div class="talent-audio">
-							<h4><?php echo $audioTitle; ?></h4>
-							<?php topo_display_audio_player($audioURL);?>
-						</div>
-						<?php }
-						echo '</div>';
-					?>
-				</div>
-				<br/><br/>
-				<?php }
-					?>
-				
+                <?php
+                if (have_rows('actor-videos', $post_id)) {
+                    ?>
+                    <div class="talent-videos">
+                        <?php
+                        echo '<h3>Videos</h3>';
+                        echo '<div class="talent-videos-wrapper">';
+                        $videos = array();
+                        while (have_rows('actor-videos', $post_id)) {
+                            the_row();
+                            $videoUrl = get_sub_field('actor-video-link');
+                            $videoTitle = get_sub_field('actor-video-title');
+                            ?>
+                            <div class="talent-video">
+                                <h4>
+                                    <?php echo $videoTitle; ?>
+                                </h4>
+                                <?php topo_display_video_player($videoUrl); ?>
+                            </div>
+                            <?php
+                        }
+                        echo '</div>';
+                        ?>
+                    </div>
+                <?php }
+                ?>
+                <?php
+                if (have_rows('actor-voiceover-samples', $post_id)) {
+                    ?>
+                    <br /><br />
+                    <div class="talent-audio-samples">
+                        <?php
+                        echo '<h3>Audio Samples</h2>';
+                        echo '<div class="talent-audio-samples-wrap">';
+                        while (have_rows('actor-voiceover-samples', $post_id)) {
+                            the_row();
+                            $audioURL = get_sub_field('actor-audio-file');
+                            $audioTitle = get_sub_field('actor-audio-title');
+                            ?>
+                            <div class="talent-audio">
+                                <h4>
+                                    <?php echo $audioTitle; ?>
+                                </h4>
+                                <?php topo_display_audio_player($audioURL); ?>
+                            </div>
+                        <?php }
+                        echo '</div>';
+                        ?>
+                    </div>
+                    <br /><br />
+                <?php }
+                ?>
+
             </div>
-            <div class="quick-view-profile-link"><a href="<?php echo get_the_permalink($post_id); ?>">View full profile ></a></div>
+            <div class="quick-view-profile-link"><a href="<?php echo get_the_permalink($post_id); ?>">View full profile ></a>
+            </div>
         </div>
         <?php
 
@@ -475,7 +502,8 @@ add_action('wp_ajax_talent_quick_view', 'talent_quick_view');
 add_action('wp_ajax_nopriv_talent_quick_view', 'talent_quick_view');
 
 
-function topo_display_video_player($videoUrl) {
+function topo_display_video_player($videoUrl)
+{
     // Extract video ID from YouTube or Vimeo URL
     if (strpos($videoUrl, 'youtube.com') !== false) {
         // Regular YouTube URL
@@ -509,7 +537,8 @@ function topo_display_video_player($videoUrl) {
 
 
 //display the audio player
-function topo_display_audio_player($file) {
+function topo_display_audio_player($file)
+{
     if (strpos($file, 'http') === 0 || strpos($file, 'https') === 0) {
         // Remote URL
         echo '<audio controls>
@@ -538,9 +567,11 @@ function topo_display_audio_player($file) {
 }
 
 // Set first gallery image as featured image
-function topo_set_featured_image_from_gallery($post_id) {
+function topo_set_featured_image_from_gallery($post_id)
+{
     // If this isn't a 'talent' post, don't update the thumbnail.
-    if (get_post_type($post_id) != 'talent') return;
+    if (get_post_type($post_id) != 'talent')
+        return;
 
     // Get the gallery field
     $gallery = get_field('talent_image_gallery', $post_id);
@@ -560,7 +591,8 @@ add_action('save_post', 'topo_set_featured_image_from_gallery');
 
 
 //When main search is submitted, redirect to Talent Grid
-function custom_search_rewrite_rule() {
+function custom_search_rewrite_rule()
+{
     if (is_search() && !empty($_GET['s'])) {
         $search_query = urlencode(get_query_var('s'));
         $talent_archive_url = home_url('/talent/');
@@ -570,7 +602,8 @@ function custom_search_rewrite_rule() {
 }
 add_action('template_redirect', 'custom_search_rewrite_rule');
 
-function custom_admin_css() {
+function custom_admin_css()
+{
     echo '<style>
         #edit-slug-box {
             display: none;
@@ -582,163 +615,172 @@ function custom_admin_css() {
 }
 add_action('admin_head', 'custom_admin_css');
 
-function add_custom_permalink() {
+function add_custom_permalink()
+{
     global $post;
     $permalink = get_permalink($post->ID);
-    
-    echo '<div id="custom-permalink"><strong>Profile Link:</strong> <a href="'.$permalink.'" target="_blank">'.$permalink.'</a></div>';
+
+    echo '<div id="custom-permalink"><strong>Profile Link:</strong> <a href="' . $permalink . '" target="_blank">' . $permalink . '</a></div>';
 }
 add_action('edit_form_after_title', 'add_custom_permalink');
 
 
 
 
-function tctalent_theme_customizer( $wp_customize ) {
+function tctalent_theme_customizer($wp_customize)
+{
     // Header Section with Background Color and Overlay Image
-    $wp_customize->add_section( 'tctalent_header_settings', array(
-        'title'    => __('Header Settings', 'tctalent'),
+    $wp_customize->add_section('tctalent_header_settings', array(
+        'title' => __('Header Settings', 'tctalent'),
         'priority' => 20,
     ));
 
-    $wp_customize->add_setting( 'header_background_color', array(
-        'default'   => '#FFFFFF',
+    $wp_customize->add_setting('header_background_color', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'header_background_color_control', array(
-        'label'    => __('Header Background Color', 'tctalent'),
-        'section'  => 'tctalent_header_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'header_background_color_control', array(
+        'label' => __('Header Background Color', 'tctalent'),
+        'section' => 'tctalent_header_settings',
         'settings' => 'header_background_color',
     )));
 
-    $wp_customize->add_setting( 'header_overlay_image', array(
+    $wp_customize->add_setting('header_overlay_image', array(
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'header_overlay_image_control', array(
-        'label'    => __('Header Overlay Image', 'tctalent'),
-        'section'  => 'tctalent_header_settings',
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'header_overlay_image_control', array(
+        'label' => __('Header Overlay Image', 'tctalent'),
+        'section' => 'tctalent_header_settings',
         'settings' => 'header_overlay_image',
     )));
 
     // Add a section for the footer settings
-    $wp_customize->add_section( 'tctalent_footer_settings', array(
-        'title'    => __('Footer Settings', 'tctalent'),
+    $wp_customize->add_section('tctalent_footer_settings', array(
+        'title' => __('Footer Settings', 'tctalent'),
         'priority' => 130,
     ));
 
     // Footer Background Color
-    $wp_customize->add_setting( 'footer_background_color', array(
-        'default'   => '#222222',
+    $wp_customize->add_setting('footer_background_color', array(
+        'default' => '#222222',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'footer_background_color_control', array(
-        'label'    => __('Footer Background Color', 'tctalent'),
-        'section'  => 'tctalent_footer_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'footer_background_color_control', array(
+        'label' => __('Footer Background Color', 'tctalent'),
+        'section' => 'tctalent_footer_settings',
         'settings' => 'footer_background_color',
     )));
 
     // Footer Text Color
-    $wp_customize->add_setting( 'footer_text_color', array(
-        'default'   => '#FFFFFF',
+    $wp_customize->add_setting('footer_text_color', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'footer_text_color_control', array(
-        'label'    => __('Footer Text Color', 'tctalent'),
-        'section'  => 'tctalent_footer_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'footer_text_color_control', array(
+        'label' => __('Footer Text Color', 'tctalent'),
+        'section' => 'tctalent_footer_settings',
         'settings' => 'footer_text_color',
     )));
 
     // Footer Content
-    $wp_customize->add_setting( 'footer_content', array(
-        'default'   => '',
+    $wp_customize->add_setting('footer_content', array(
+        'default' => '',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( 'footer_content_control', array(
-        'label'    => __('Footer Content', 'tctalent'),
-        'type'     => 'textarea',
-        'section'  => 'tctalent_footer_settings',
+    $wp_customize->add_control('footer_content_control', array(
+        'label' => __('Footer Content', 'tctalent'),
+        'type' => 'textarea',
+        'section' => 'tctalent_footer_settings',
         'settings' => 'footer_content',
     ));
 
     // Color Settings Section
-    $wp_customize->add_section( 'tctalent_color_settings', array(
-        'title'    => __('Color Settings', 'tctalent'),
+    $wp_customize->add_section('tctalent_color_settings', array(
+        'title' => __('Color Settings', 'tctalent'),
         'priority' => 30,
     ));
 
     // Gradient Start Color
-    $wp_customize->add_setting( 'site_bg_gradient_start', array(
-        'default'   => '#FFFFFF',
+    $wp_customize->add_setting('site_bg_gradient_start', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_bg_gradient_start_control', array(
-        'label'    => __('Site BG Gradient Start', 'tctalent'),
-        'section'  => 'tctalent_color_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'site_bg_gradient_start_control', array(
+        'label' => __('Site BG Gradient Start', 'tctalent'),
+        'section' => 'tctalent_color_settings',
         'settings' => 'site_bg_gradient_start',
     )));
 
     // Gradient End Color
-    $wp_customize->add_setting( 'site_bg_gradient_end', array(
-        'default'   => '#FFFFFF',
+    $wp_customize->add_setting('site_bg_gradient_end', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'site_bg_gradient_end_control', array(
-        'label'    => __('Site BG Gradient End', 'tctalent'),
-        'section'  => 'tctalent_color_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'site_bg_gradient_end_control', array(
+        'label' => __('Site BG Gradient End', 'tctalent'),
+        'section' => 'tctalent_color_settings',
         'settings' => 'site_bg_gradient_end',
     )));
 
     // Main Content Background Color
-    $wp_customize->add_setting( 'main_content_background_color', array(
-        'default'   => '#FFFFFF',
+    $wp_customize->add_setting('main_content_background_color', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'main_content_background_color_control', array(
-        'label'    => __('Main Content Background Color', 'tctalent'),
-        'section'  => 'tctalent_color_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'main_content_background_color_control', array(
+        'label' => __('Main Content Background Color', 'tctalent'),
+        'section' => 'tctalent_color_settings',
         'settings' => 'main_content_background_color',
     )));
 
-     // Button Background Color
-    $wp_customize->add_setting( 'button_background_color', array(
-        'default'   => '#222222',
+    // Button Background Color
+    $wp_customize->add_setting('button_background_color', array(
+        'default' => '#222222',
         'transport' => 'refresh',
     ));
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'button_background_color_control', array(
-        'label'    => __('Button BG Color', 'tctalent'),
-        'section'  => 'tctalent_color_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'button_background_color_control', array(
+        'label' => __('Button BG Color', 'tctalent'),
+        'section' => 'tctalent_color_settings',
         'settings' => 'button_background_color',
     )));
 
-     // Button Text Color
-    $wp_customize->add_setting( 'button_text_color', array(
-        'default'   => '#FFFFFF',
+    // Button Text Color
+    $wp_customize->add_setting('button_text_color', array(
+        'default' => '#FFFFFF',
         'transport' => 'refresh',
     ));
-    $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'button_text_color_control', array(
-        'label'    => __('Button Text Color', 'tctalent'),
-        'section'  => 'tctalent_color_settings',
+    $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'button_text_color_control', array(
+        'label' => __('Button Text Color', 'tctalent'),
+        'section' => 'tctalent_color_settings',
         'settings' => 'button_text_color',
     )));
 }
 
-add_action( 'customize_register', 'tctalent_theme_customizer' );
+add_action('customize_register', 'tctalent_theme_customizer');
 
 
 
-function tctalent_customizer_css() {
+function tctalent_customizer_css()
+{
     ?>
     <style type="text/css">
         #wrapper {
-            background-color: <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>;
-            background-image: linear-gradient(to bottom right, <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>, <?php echo get_theme_mod('site_bg_gradient_end', '#000000'); ?>);
+            background-color:
+                <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>
+            ;
+            background-image: linear-gradient(to bottom right,
+                    <?php echo get_theme_mod('site_bg_gradient_start', '#FFFFFF'); ?>
+                    ,
+                    <?php echo get_theme_mod('site_bg_gradient_end', '#000000'); ?>
+                );
             background-attachment: fixed;
         }
 
@@ -746,7 +788,9 @@ function tctalent_customizer_css() {
             padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
+            background-color:
+                <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>
+            ;
         }
 
         @media screen and (max-width: 768px) {
@@ -762,7 +806,9 @@ function tctalent_customizer_css() {
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background-color: <?php echo get_theme_mod('header_background_color', '#0C3D59'); ?>;
+            background-color:
+                <?php echo get_theme_mod('header_background_color', '#0C3D59'); ?>
+            ;
             background-image: url('<?php echo get_theme_mod('header_overlay_image', 'https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); ?>');
             background-repeat: repeat;
             border-bottom: 3px solid #F39C03;
@@ -771,43 +817,60 @@ function tctalent_customizer_css() {
 
         input[type="submit"],
         button,
-        a.button {
+        a.button,
+        #search .search-submit {
             font-size: 18px;
             font-family: "Pierson", serif;
             padding: 9px 20px 7px;
             border: 1px solid #d2c659;
             border-radius: 5px;
-            color: <?php echo get_theme_mod('button_text_color', '#FFFFFF'); ?>;
+            color:
+                <?php echo get_theme_mod('button_text_color', '#FFFFFF'); ?>
+            ;
             cursor: pointer;
             transition: background-color 0.3s;
-            background-color: <?php echo get_theme_mod('button_background_color', '#222222'); ?>;
+            background-color:
+                <?php echo get_theme_mod('button_background_color', '#222222'); ?>
+            ;
             text-decoration: none;
         }
 
         input[type="submit"]:hover,
         button:hover,
-        a.button:hover {
-            filter: brightness(120%); 
+        a.button:hover,
+        #search .search-submit:hover {
+            filter: brightness(120%);
         }
 
         input[type="submit"]:active,
         button:active,
-        a.button:active {
+        a.button:active,
+        #search .search-submit:active {
             filter: brightness(120%);
         }
 
-         #footer {
-            background-color: <?php echo get_theme_mod('footer_background_color', '#000000'); ?>;
-            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
-        }
-         #footer a {
-            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
-            text-decoration: underline;
-         }
-        #copyright {
-            color: <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>;
+
+        #footer {
+            background-color:
+                <?php echo get_theme_mod('footer_background_color', '#000000'); ?>
+            ;
+            color:
+                <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>
+            ;
         }
 
+        #footer a {
+            color:
+                <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>
+            ;
+            text-decoration: underline;
+        }
+
+        #copyright {
+            color:
+                <?php echo get_theme_mod('footer_text_color', '#FFFFFF'); ?>
+            ;
+        }
     </style>
 
     <?php
