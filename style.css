@@ -197,22 +197,14 @@ code {
 	background-color: #0C3D59;
 	background-image: url('https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png');
 	background-repeat: repeat;
-	position: relative;
-	border-bottom: 3px solid #E8A001;
-	overflow: hidden; /* Added to contain the wave effect within the header */
+.box {
+  --mask:
+	radial-gradient(447.21px at 50% 600.00px,#000 99%,#0000 101%) calc(50% - 400px) 0/800px 100%,
+	radial-gradient(447.21px at 50% -400px,#0000 99%,#000 101%) 50% 200px/800px 100% repeat-x;
+  -webkit-mask: var(--mask);
+		  mask: var(--mask);
 }
 
-#header::after {
-	content: '';
-	position: absolute;
-	bottom: -10px; /* Adjust as necessary */
-	left: 0;
-	width: 100%;
-	height: 40px; /* Height of the wave */
-	background: white;
-	mask-image: repeating-radial-gradient(circle at 50% 0, transparent 0, transparent 15px, black 16px, black 20px);
-	mask-size: 100% 20px;
-}
 
 
 #branding {
