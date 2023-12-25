@@ -635,7 +635,7 @@ function tctalent_theme_customizer($wp_customize)
         'priority' => 20,
     ));
 
-     $wp_customize->add_setting('site_header_logo', array(
+    $wp_customize->add_setting('site_header_logo', array(
         'transport' => 'refresh',
     ));
 
@@ -798,9 +798,15 @@ function tctalent_customizer_css()
             padding: 40px;
             max-width: 1400px;
             margin: 0 auto;
-            background-color: <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>;
-            border-left: 4px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
-            border-right: 4px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
+            background-color:
+                <?php echo get_theme_mod('main_content_background_color', 'rgba(255,255,255,.97)'); ?>
+            ;
+            border-left: 4px solid
+                <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>
+            ;
+            border-right: 4px solid
+                <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>
+            ;
         }
 
         #header {
@@ -813,14 +819,17 @@ function tctalent_customizer_css()
             ;
             background-image: url('<?php echo get_theme_mod('header_overlay_image', 'https://staging2.toposwopetalent.com/wp-content/uploads/2023/12/deco-texture-gold-transparent-100-30-opac-1.png'); ?>');
             background-repeat: repeat;
-            border-bottom: 3px solid <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>;
+            border-bottom: 3px solid
+                <?php echo get_theme_mod('site_bg_gradient_end', '#FFFFFF'); ?>
+            ;
         }
 
 
         input[type="submit"],
         button,
         a.button,
-        #search .search-submit {
+        #search .search-submit,
+        .fl-button {
             font-size: 18px;
             font-family: "Pierson", serif;
             padding: 9px 20px 7px;
@@ -835,19 +844,22 @@ function tctalent_customizer_css()
                 <?php echo get_theme_mod('button_background_color', '#222222'); ?>
             ;
             text-decoration: none;
+            display: inline-block;
         }
 
         input[type="submit"]:hover,
         button:hover,
         a.button:hover,
-        #search .search-submit:hover {
+        #search .search-submit:hover,
+        .fl-button:hover {
             filter: brightness(120%);
         }
 
         input[type="submit"]:active,
         button:active,
         a.button:active,
-        #search .search-submit:active {
+        #search .search-submit:active,
+        .fl-button:active {
             filter: brightness(120%);
         }
 
