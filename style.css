@@ -484,6 +484,7 @@ code {
 	margin: 0;
 	padding: 0;
 	display: flex;
+	
 	gap: 25px;
 	list-style: none;
 }
@@ -518,7 +519,6 @@ code {
 @media screen and (max-width: 999px) {
 
 	#branding {
-		flex-direction: column;
 		flex-wrap: wrap;
 		justify-content: center;
 		padding: 20px 40px;
@@ -530,7 +530,9 @@ code {
 		flex: 0 0 100%;
 		text-align: center;
 	}
-
+	#menu ul {
+		justify-content: center;
+	}
 	#menu li.menu-item > a {
 		padding: 0;
 		
