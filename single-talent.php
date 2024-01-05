@@ -278,7 +278,7 @@ if ($resume_builder) {
 </div>
 <?php } ?>
 <div class="talent-reachout-button">
-<a class="button" href="https://toposwopetalent.com/contact/">Reach Out to Book this Talent</a>
+<a class="button" href="<?php echo get_bloginfo('url'); ?>/contact">Reach Out to Book this Talent</a>
 </div>
 </div>
 
