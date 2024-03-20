@@ -448,6 +448,9 @@ code {
 #site-title {
 	flex: 1;
 	text-align: center;
+	max-height: 140px;
+	display: flex;
+	justify-content: center;
 }
 
 /* Main search form */
