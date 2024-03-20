@@ -575,7 +575,9 @@ code {
 		display: block;
 	}
 }
-
+.search-submit {
+font-family: "Open sans", Arial, Helvetica, sans-serif!important;
+}
 /* Footer */
 footer {
 	padding: 20px 25px;
@@ -637,6 +639,7 @@ input.search-filter-reset {
 	font-style: italic;
 	position: relative;
 	top: 4px;
+	font-family: "Open Sans", Arial, Helvetica, sans-serif!important;
 }
 .sf-field-reset h4 {
 	opacity: 0;
@@ -1118,7 +1121,7 @@ input.search-filter-reset {
 }
 .talent-table td.attribute-value {
 	font-weight: bold;
-	color: #2d4675;
+	color: #000;
 }
 .talent-table-row.field-weight td.attribute-value:after {
 	content: "lbs";
